@@ -1,10 +1,12 @@
+import { useDispatch } from 'react-redux';
 import Header from './components/Header';
 import Main from './components/Main';
-import { tokenRequest } from './components/hooks/token';
+import { getToken } from './hooks/token';
+import { updateToken } from './store/token/tokenSlice';
 
 const App = () => {
-  tokenRequest();
-  console.log();
+  const dispatch = useDispatch();
+  dispatch(updateToken(getToken()));
   return (<>
     <Header />
     <Main />
