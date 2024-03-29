@@ -1,9 +1,35 @@
-import React from 'react';
-// import style from './List.module.css';
+import React, { useEffect, useRef } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import style from './List.module.css';
+import { photosRequest } from '../../../store/photosData/photosSlice';
+import Photo from './Photo';
+import { Outlet } from 'react-router-dom';
 
 export const List = () => {
-  console.log();
-  return (<ul>
-    <li></li>
-  </ul>);
+  const endList = useRef(null);
+  const dispatch = useDispatch();
+  const photos = useSelector(state => state.photos.photos);
+  console.log('photos: ', photos);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver((entries) => {
+      if (entries[0].isIntersecting) {
+        dispatch(photosRequest());
+      }
+    }, { rootMargin: '50px' });
+
+    observer.observe(endList.current);
+    return () => {
+      if (endList.current) {
+        observer.unobserve(endList.current);
+      }
+    };
+  }, [endList.current]);
+
+  return (<>
+    <ul className={style.list}>
+      {photos.map((photo) => (<Photo key={photo.id} photo={photo}></Photo>))}
+      <li ref={endList} className={style.end} ></li>
+    </ul><Outlet />
+  </>);
 };

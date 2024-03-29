@@ -4,6 +4,7 @@ import { url } from '../../../API/auth';
 import { useAuth } from '../../../hooks/useAuth';
 import { useDispatch } from 'react-redux';
 import { useState } from 'react';
+import { deleteToken } from '../../../store/token/tokenSlice';
 
 export const Auth = () => {
   const [logout, setLogout] = useState(false);
@@ -11,7 +12,8 @@ export const Auth = () => {
   const dispatch = useDispatch();
 
   const logoutUser = () => {
-    dispatch(console.log());
+    dispatch(deleteToken());
+    localStorage.removeItem('brearer');
     setLogout(!logout);
   };
   return (<div className={style.container}>
