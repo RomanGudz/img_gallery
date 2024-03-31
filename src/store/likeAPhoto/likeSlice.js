@@ -21,6 +21,9 @@ const likeAPhoto = createSlice({
     },
     likeError: (state, action) => {
       state.error = action.payload;
+    },
+    resetLikes: (state) => {
+      state.likes = 0;
     }
   }
 });
@@ -29,6 +32,7 @@ export const {
   likePhotoReuqest,
   likePhoto,
   likeError,
+  resetLikes
 } = likeAPhoto.actions;
 
 export default likeAPhoto.reducer;
