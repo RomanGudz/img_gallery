@@ -6,19 +6,25 @@ import { useEffect, useRef, useState } from 'react';
 import { usePhoto } from '../../hooks/usePhoto';
 import formatDate from '../../utils/formatDate';
 import { useDispatch, useSelector } from 'react-redux';
-import like from './img/like.svg';
+import { ReactComponent as LikeIcon } from './img/like.svg';
+import { likePhotoReuqest } from '../../store/likeAPhoto/likeSlice';
+
 
 export const Modal = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const dispatch = useDispatch();
   const btnRef = useRef(null);
   const overlayRef = useRef(null);
   const [photo, loading] = usePhoto(id);
   const token = useSelector(state => state.token.token);
   const [isDisabled, setIsDisabled] = useState(true);
   const [isLoaded, setIsLoaded] = useState(false);
-  console.log(photo);
+  const totalLikes = useSelector(state => (state.like.likes ?
+    state.like.likes : photo.likes));
+  // const likeByUser = useSelector(state => (state.like.likeByUser ?
+  //   state.like.likeByUser :
+  //   state.photo.like_by_user));
+  const dispatch = useDispatch();
 
   useEffect(() => {
     setIsDisabled(!token);
@@ -29,10 +35,6 @@ export const Modal = () => {
       setIsLoaded(true);
     }
   }, [photo]);
-
-  const likes = () => {
-    dispatch();
-  };
 
   const handleClick = e => {
     const target = e.target;
@@ -62,7 +64,7 @@ export const Modal = () => {
     ReactDOM.createPortal(
       <div className={style.overlay} ref={overlayRef}>
         <div className={style.modal}>
-          {loading && isLoaded && photo ? (
+          {loading && isLoaded ? (
             <p>Loading...</p>
           ) : (
             <>
@@ -70,11 +72,13 @@ export const Modal = () => {
               <p>{photo.username}</p>
               <p>{formatDate(photo.created_at)}</p>
               <button
-                onClick={likes}
+                onClick={() => {
+                  dispatch(likePhotoReuqest(id));
+                }}
                 aria-disabled={isDisabled}
               >
-                <img src={like} alt='like' />
-                <span>{photo.likes}</span>
+                <LikeIcon alt='like' />
+                <span >{totalLikes}</span>
               </button>
               <button
                 className={style.close}

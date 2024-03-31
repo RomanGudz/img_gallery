@@ -1,13 +1,13 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { photoRequest } from '../store/photoByID/photoSlice';
+import { likePhotoReuqest } from '../store/likeAPhoto/likeSlice';
 
-export const useLikeAphoto = () => {
+export const useLikeAphoto = (id) => {
   const likeByUser = useSelector(state => state.photo.likeByUser);
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(photoRequest());
-  });
+    dispatch(likePhotoReuqest(id));
+  }, []);
 
   return [likeByUser];
 };

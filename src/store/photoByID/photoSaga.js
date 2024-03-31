@@ -5,7 +5,7 @@ import {
   photoLoading,
   photoRequestError,
 } from './photoSlice';
-import { URL } from '../../API/const';
+import { URL, ACCESS_KEY } from '../../API/const';
 
 function* photoRequestAsync(action) {
   const token = yield select(state => state.token.token);
@@ -15,12 +15,11 @@ function* photoRequestAsync(action) {
   try {
     const response = yield axios(`${URL}photos/${action.payload}`, {
       headers: {
-        Authorization: `Bearer ${token}`,
-        // Authorization: `${token ? `Bearer ${token}` :
-        //   `Client-ID ${ACCESS_KEY}`}`,
+        // Authorization: `Bearer ${token}`,
+        Authorization: `${token ? `Bearer ${token}` :
+          `Client-ID ${ACCESS_KEY}`}`,
       }
     });
-    console.log('loading: ', loading);
     const data = response.data;
     yield put(photoSuccess(data));
   } catch (err) {

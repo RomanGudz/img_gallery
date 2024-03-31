@@ -1,10 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-  loading: false,
   likeByUser: false,
   likes: 0,
-  id: '',
   photo: {},
   error: '',
 };
@@ -13,8 +11,9 @@ const likeAPhoto = createSlice({
   name: 'like',
   initialState,
   reducers: {
-    likePhotoReuqest: (action) => {
-      action.error = '';
+    likePhotoReuqest: (state, action) => {
+      state.error = '';
+      state.likes = 0;
     },
     likePhoto: (state, action) => {
       state.likeByUser = action.payload.liked_by_user;

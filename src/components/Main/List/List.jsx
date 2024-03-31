@@ -5,11 +5,11 @@ import { photosRequest } from '../../../store/photosData/photosSlice';
 import Photo from './Photo';
 import { Outlet } from 'react-router-dom';
 
+
 export const List = () => {
   const endList = useRef(null);
   const dispatch = useDispatch();
   const photos = useSelector(state => state.photos.photos);
-  console.log('photos: ', photos);
 
   useEffect(() => {
     const observer = new IntersectionObserver((entries) => {
@@ -28,7 +28,8 @@ export const List = () => {
 
   return (<>
     <ul className={style.list}>
-      {photos.map((photo) => (<Photo key={photo.id} photo={photo}></Photo>))}
+      {photos.map((photo) => (
+        <Photo key={photo.id} photo={photo} />))}
       <li ref={endList} className={style.end} ></li>
     </ul><Outlet />
   </>);
