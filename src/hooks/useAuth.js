@@ -10,8 +10,9 @@ export const useAuth = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   useEffect(() => {
+    if (!token) return;
     dispatch(authRequest());
-    navigate('/photos');
+    navigate('/');
   }, [token]);
   return [auth, loading];
 };

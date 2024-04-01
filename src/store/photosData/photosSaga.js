@@ -18,7 +18,7 @@ function* photosRequestAsync() {
   try {
     const response =
       yield axios(
-        `${URL}photos${page === 1 ? '' : `?page=${page}`}?per_page=30`,
+        `${URL}photos${page === 1 ? '?' : `?page=${page}&`}per_page=30`,
         {
           headers: {
             Authorization: `${token ? `Bearer ${token}` :

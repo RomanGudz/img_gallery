@@ -5,7 +5,6 @@ import { ACCESS_KEY, REDIRECT_URI, SECRET_KEY } from '../../API/const';
 import {
   loadingToken,
   updateToken,
-  // deleteToken, подумать нужен или нет???
   errorToken,
 } from './tokenSlice';
 import { setToken } from '../../hooks/token';

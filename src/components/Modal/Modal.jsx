@@ -73,7 +73,9 @@ export const Modal = () => {
               <p>{formatDate(photo.created_at)}</p>
               <button
                 onClick={() => {
-                  dispatch(likePhotoReuqest(id));
+                  if (!isDisabled) {
+                    dispatch(likePhotoReuqest(id));
+                  }
                 }}
                 aria-disabled={isDisabled}
               >

@@ -18,14 +18,13 @@ export const Auth = () => {
   };
   return (<div className={style.container}>
     {loading ? (<p>loading</p>) : auth.username ? (
-      <button className={style.btn} onClick={() => {
+      <><button className={style.btn} onClick={() => {
         setLogout(!logout);
       }}>
         <img className={style.img}
           src={auth.imgUser} title={auth.username}
-          alt={`Аватара ${auth.username}`}
-        />
-      </button>
+          alt={`Аватара ${auth.username}`} />
+      </button><p>{auth.username}</p></>
     ) : (<a href={url} className={style.authLink}>
       <img className={style.img} src={authLogo} alt='Аватар'></img>
     </a>)
