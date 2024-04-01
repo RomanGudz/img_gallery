@@ -39,15 +39,15 @@ export const Modal = () => {
   const handleClick = e => {
     const target = e.target;
     if (target === overlayRef.current) {
-      navigate(`/photos/`);
+      navigate(`/`);
     }
     if (target === btnRef.current) {
-      navigate(`/photos/`);
+      navigate(`/`);
     }
   };
   const handleKeyDown = e => {
     if (e.key === 'Escape') {
-      navigate(`/photos/`);
+      navigate(`/`);
     }
   };
 
@@ -84,7 +84,7 @@ export const Modal = () => {
               </button>
               <button
                 className={style.close}
-                onClick={() => navigate(`/photos`)}
+                onClick={() => navigate(`/`)}
               >
                 <img src={close} alt='Close' ref={btnRef} />
               </button>
